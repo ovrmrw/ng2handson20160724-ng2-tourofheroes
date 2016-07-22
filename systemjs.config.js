@@ -16,6 +16,7 @@ System.config({
   },
   packages: {
     'app': { main: 'main' },
+    'app/types': { main: 'index' },
     '@angular/core': { main: 'bundles/core.umd' },
     '@angular/common': { main: 'bundles/common.umd' },
     '@angular/compiler': { main: 'bundles/compiler.umd' },

@@ -4,11 +4,12 @@ import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Rx';
 
 import { HeroSearchService } from './hero-search.service';
-import { Hero } from './hero';
+import { Hero } from '../types';
 
 @Component({
+  moduleId: module.id,
   selector: 'hero-search',
-  templateUrl: 'app/hero-search.component.html',
+  templateUrl: 'hero-search.component.html',
   providers: [HeroSearchService]
 })
 export class HeroSearchComponent implements OnInit {

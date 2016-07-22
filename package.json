@@ -4,13 +4,13 @@
   "description": "Angular2ハンズオン(2016年7月24日)向けの公式\"Tour of Heroes\"ちょいアレンジ版",
   "main": "systemjs.config.js",
   "scripts": {
+    "clean": "node build/copy-files.js",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "babel": "babel .dest-pre --out-dir .dest --presets es2015 --source-maps",
-    "babel:w": "babel .dest-pre --out-dir .dest --presets es2015 --source-maps -w",
-    "copy": "node build/copy-files.js",
-    "start": "npm run copy && npm run tsc && concurrently -k \"npm run tsc:w\" \"npm run lite\" ",
-    "asyncawait": "npm run tsc && npm run babel && concurrently -k \"npm run tsc:w\" \"npm run babel:w\" \"npm run lite\" ",
+    "babel:w": "babel .dest-pre --out-dir .dest --presets es2015 --source-maps -w",    
+    "start": "npm run clean && npm run tsc && concurrently -k \"npm run tsc:w\" \"npm run lite\" ",
+    "asyncawait": "npm run clean && npm run tsc && npm run babel && concurrently -k \"npm run tsc:w\" \"npm run babel:w\" \"npm run lite\" ",
     "lite": "lite-server --config config/browsersync.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

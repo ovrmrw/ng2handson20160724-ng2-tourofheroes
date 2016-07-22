@@ -1,7 +1,11 @@
 # ng2handson20160724-ng2-tourofheroes
-Angular2ハンズオン(2016年7月24日)向けの公式"Tour of Heroes"ちょいアレンジ版
+Angular2公式"Tour of Heroes"ちょいアレンジ版
 
 ---
+
+[Original Tutorial](https://angular.io/docs/ts/latest/tutorial/)
+
+Angular2 rc.4対応
 
 ### Editor
 Visual Studio Code ver.1.3.1
