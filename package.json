@@ -1,8 +1,8 @@
 {
   "name": "ng2handson20160724-ng2-tourofheroes",
   "version": "1.0.0",
-  "description": "Angular2ハンズオン(2016年7月24日)向けの公式\"Tour of Heroes\"ちょいアレンジ版",
-  "main": "systemjs.config.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "clean": "node build/copy-files.js",
     "tsc": "tsc",
