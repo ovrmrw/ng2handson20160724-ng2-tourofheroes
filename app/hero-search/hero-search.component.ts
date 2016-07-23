@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
-import { Subject } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs/Rx';
 
 import { HeroSearchService } from './hero-search.service';
 import { Hero } from '../types';
@@ -18,17 +17,15 @@ export class HeroSearchComponent implements OnInit {
 
   constructor(
     private heroSearchService: HeroSearchService,
-    private router: Router) { }
-
-  // Push a search term into the observable stream.
-  search(term: string) { this.searchSubject.next(term); }
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.heroes = this.searchSubject
       .asObservable()           // cast as Observable
       .debounceTime(300)        // wait for 300ms pause in events
       .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(term => term   // switch to new observable each time
+      .switchMap<Hero[]>(term => term   // switch to new observable each time
         // return the http search observable
         ? this.heroSearchService.search(term)
         // or the observable of empty heroes if no search term
@@ -40,6 +37,9 @@ export class HeroSearchComponent implements OnInit {
         return Observable.of<Hero[]>([]);
       });
   }
+
+  // Push a search term into the observable stream.
+  search(term: string) { this.searchSubject.next(term); }
 
   gotoDetail(hero: Hero) {
     let link = ['/detail', hero.id];

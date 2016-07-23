@@ -14,17 +14,22 @@ import { HeroDetailComponent } from '../hero-detail/hero-detail.component';
 })
 export class HeroesComponent implements OnInit {
   heroes: Hero[];
-  selectedHero: Hero;
+  selectedHero: Hero | null;
   addingHero = false;
   error: any;
 
   constructor(
     private router: Router,
-    private heroService: HeroService) { }
+    private heroService: HeroService
+  ) { }
+
+  ngOnInit() {
+    this.getHeroes();
+  }
 
   getHeroes() {
     this.heroService
-      .getHeroes()
+      .getHeroesAsPromise()
       .then(heroes => this.heroes = heroes)
       .catch(error => this.error = error);
   }
@@ -50,17 +55,15 @@ export class HeroesComponent implements OnInit {
       .catch(error => this.error = error);
   }
 
-  ngOnInit() {
-    this.getHeroes();
-  }
-
   onSelect(hero: Hero) {
     this.selectedHero = hero;
     this.addingHero = false;
   }
 
   gotoDetail() {
-    this.router.navigate(['/detail', this.selectedHero.id]);
+    if (this.selectedHero) {
+      this.router.navigate(['/detail', this.selectedHero.id]);
+    }
   }
 }
 

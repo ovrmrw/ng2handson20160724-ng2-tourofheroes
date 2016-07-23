@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/do';
@@ -13,15 +13,15 @@ export class HeroService {
 
   constructor(private http: Http) { }
 
-  getHeroes() {
+  getHeroesAsPromise(): Promise<Hero[]> {
     return this.http.get(this.heroesUrl)
       .toPromise()
       .then(response => response.json().data as Hero[])
       .catch(this.handleError);
   }
 
-  getHero(id: number) {
-    return this.getHeroes()
+  getHeroAsPromise(id: number): Promise<Hero> {
+    return this.getHeroesAsPromise()
       .then(heroes => heroes.find(hero => hero.id === id));
   }
 
@@ -32,7 +32,7 @@ export class HeroService {
     return this.post(hero);
   }
 
-  delete(hero: Hero) {
+  delete(hero: Hero): Promise<Response> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -53,12 +53,12 @@ export class HeroService {
     return this.http
       .post(this.heroesUrl, JSON.stringify(hero), { headers: headers })
       .toPromise()
-      .then(res => res.json().data)
+      .then(res => res.json().data as Hero)
       .catch(this.handleError);
   }
 
   // Update existing Hero
-  private put(hero: Hero) {
+  private put(hero: Hero): Promise<Hero> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -71,7 +71,7 @@ export class HeroService {
       .catch(this.handleError);
   }
 
-  private handleError(error: any) {
+  private handleError(error: any): Promise<never> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
